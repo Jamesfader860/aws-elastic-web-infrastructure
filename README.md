@@ -36,22 +36,25 @@ A custom Virtual Private Cloud configured with a standard `/16` CIDR block block
 
 ## 📸 Verification & Visual Proof
 
-### Phase 1: Infrastructure & Network Highway Topology
-The custom VPC and public routing paths were successfully provisioned, ensuring the public subnets maintain explicit entry and exit lanes to the broader internet.
+### Phase 1: Isolated VPC Infrastructure Topology
+The custom network footprint was established using a `/16` CIDR block block to handle isolated data control planes.
+![Custom VPC Created](01-vpc-created.png)
 
-*Include your network/subnet screenshots here if you captured them, or go straight to compute verification below!*
+### Phase 2: Multi-AZ Subnet Allocation
+To prevent single points of failure at the data center level, subnets were distributed across distinct Availability Zones.
+![Multi-AZ Subnets Configured](02-multi-az-subnets.png)
 
-### Phase 2: Multi-AZ Compute Verification
-Once the Auto Scaling Group was tied directly to the Target Group, AWS automatically initialized two concurrent web servers distributed evenly across physically distinct Availability Zones (`us-east-1a` and `us-east-1b`).
+### Phase 3: Internet Gateway & Route Table Mapping
+Explicit route table definitions were mapped to link the public subnets to the Internet Gateway, establishing external data highways.
+![Public Route Table Configuration](03-route-table-configured.png)
 
+### Phase 4: Elastic Compute Layer Provisioning
+The Auto Scaling Group successfully deployed multiple synchronized compute instances across separate physical fault domains.
 ![Multi-AZ Web Servers Running](04-web-server-running.png)
 
-### Phase 3: End-to-End Application Delivery via ALB
-Accessing the architecture via the Application Load Balancer's unique public DNS name proves that traffic routing, target registration, and security group handshakes are operational. Refreshing the browser showcases live round-robin distribution between backend targets.
-
+### Phase 5: End-to-End Application Delivery via ALB
+Accessing the architecture via the Application Load Balancer's public URL proves operational routing, target health status stability, and secure ingress rules.
 ![Web Page Loaded via ALB](05-web-page-loaded.png)
-
----
 
 ## 🔧 Engineering Challenges & Solutions
 
